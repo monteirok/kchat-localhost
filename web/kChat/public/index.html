@@ -24,13 +24,13 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    // Client-side JavaScript
+    // client-side js
     var socket = io();
     var messages = document.getElementById('messages');
     var form = document.getElementById('messages-in');
     var input = document.getElementById('msg-input');
     var usernameColorInput = document.getElementById('username-color-input');
-    var username = ""; // Initialize the username variable
+    var username = "";
 
     // Function to set the username
     function setUsername() {
@@ -47,6 +47,12 @@
         for (var i = 0; i < 6; i++) {
             color += letters[Math.floor(Math.random() * 16)];
         }
+        
+        // red (#ff0000) is reserved for the server chat bot
+        if (color == "#ff0000") {
+            color = '#ffcc00';
+        }
+
         return color;
     }
 

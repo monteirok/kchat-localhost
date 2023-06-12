@@ -29,11 +29,25 @@ server.listen(3000, () => {
  * HANDLE CONNECTIONS
  */
 io.on('connection', (socket) => {
+  // Emit 'new user connected' message to chat
+  io.emit('chatMessage', {
+    username: 'kChat',
+    message: 'A new user has joined the chat!',
+    color: '#ff0000'
+  });
   // display user connected console msg
   console.log('\x1b[5m\x1b[32m >>\x1b[0m' + '\x1b[2mNew user connected\x1b[0m');
 
-  // disconnection
+  /**
+   * disconnection
+   */
   socket.on('disconnect', () => {
+    // Emit 'user disconnected' message to chat
+    io.emit('chatMessage', {
+      username: 'kChat',
+      message: 'A user has left the chat.',
+      color: '#ff0000'
+    });
     // display user disconnected console msg
     console.log('\x1b[0m\x1b[5m\x1b[31m >>\x1b[0m' + '\x1b[2mUser disconnected\x1b[0m');
   });

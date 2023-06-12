@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
   socket.on('newUser', (username) => {
     io.emit('chatMessage', {
       username: `${username}`,
-      message: 'has joined the chat!',
+      message: 'has joined the chat',
       color: '#b20000'
     });
 
@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
     // emit 'user disconnected' message to chat/console
     io.emit('chatMessage', {
       username: 'Goodbye',
-      message: 'a user has left the chat.',
+      message: 'a user has left the chat',
       color: '#b20000'
     });
 

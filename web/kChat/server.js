@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
     // emit 'user disconnected' message to chat/console
     io.emit('chatMessage', {
       username: 'Goodbye',
-      message: 'A user has left the chat.',
+      message: 'a user has left the chat.',
       color: '#b20000'
     });
 

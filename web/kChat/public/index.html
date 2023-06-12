@@ -39,6 +39,13 @@
         if (name) {
             username = name;
         }
+        // emit a 'newUser' event to the server that contains the username and notifies that a new user has joined
+        socket.emit('newUser', username);
+        
+        // emit 'disconnect' event when the user leaves the chat
+        window.addEventListener('beforeunload', function(e) {
+            socket.emit('disconnect', username);
+        });
     }
 
     // Function to generate a random color

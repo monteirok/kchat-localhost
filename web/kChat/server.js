@@ -32,9 +32,9 @@ io.on('connection', (socket) => {
   // emit 'new user connected' message to chat/console
   socket.on('newUser', (username) => {
     socket.emit('chatMessage', {
-      username: 'kChat',
-      message: `${username} has joined the chat!`,
-      color: '#ff0000'
+      username: `${username}`,
+      message: 'has joined the chat!',
+      color: '#b20000'
     });
 
     console.log('\x1b[5m\x1b[32m >> \x1b[0m' + `[${username}]\x1b[2m has connected\x1b[0m`);
@@ -46,9 +46,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     // emit 'user disconnected' message to chat/console
     io.emit('chatMessage', {
-      username: ' kChat ',
-      message: `A user has left the chat.`,
-      color: '#ff0000'
+      username: 'Goodbye',
+      message: 'A user has left the chat.',
+      color: '#b20000'
     });
 
     console.log('\x1b[0m\x1b[5m\x1b[31m >>\x1b[0m' + '\x1b[2mUser disconnected\x1b[0m');

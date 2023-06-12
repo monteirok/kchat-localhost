@@ -16,7 +16,7 @@ app.use(express.static('public'));
 server.listen(3000, () => {
   // clear the console
   console.clear();
-
+  // display welcome message
   console.log('\x1b[2m\x1b[36m=====================\x1b[0m');
   console.log("  \x1b[37mWelcome to kChat Console!\x1b[0m");
   console.log('\x1b[2m\x1b[36m=====================\x1b[0m');

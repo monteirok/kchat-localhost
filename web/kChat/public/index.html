@@ -50,7 +50,14 @@
         for (var i = 0; i < 6; i++) {
             color += letters[Math.floor(Math.random() * 16)];
         }
-        
+
+        color = '#b20000';
+
+        // reserve #b20000 for the server chat bot
+        if (color == "#b20000") {
+            color = "#ffcc00";
+        }
+
         return color;
     }
 

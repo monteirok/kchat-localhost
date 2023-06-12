@@ -1,0 +1,106 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>kChat</title>
+</head>
+<body>
+    <div class="chat-container sticky-bottom">
+        <!-- messages container -->
+        <div class="center">
+            <div class="messages-container">
+                <div id="messages"></div>
+            </div>
+        </div>
+        <!-- message input container -->
+        <div class="message-in-container center">
+            <form id="messages-in">
+                <input id="msg-input" autocomplete="off" autofocus="on"/>
+                <input type="color" id="username-color-input" value="#ff0000" hidden/>
+                <button id="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // Client-side JavaScript
+    var socket = io();
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('messages-in');
+    var input = document.getElementById('msg-input');
+    var usernameColorInput = document.getElementById('username-color-input');
+    var username = ""; // Initialize the username variable
+
+    // Function to set the username
+    function setUsername() {
+        var name = prompt("Enter your username:");
+        if (name) {
+            username = name;
+        }
+    }
+
+    // Function to generate a random color
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Set a random color as the initial value of username-color-input
+    usernameColorInput.value = getRandomColor();
+
+    // Event listener for the form submission
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value) {
+            socket.emit('chatMessage', {
+                username: username,
+                message: input.value,
+                color: usernameColorInput.value
+            }); // Send username, message, and color as an object
+            input.value = '';
+        }
+    });
+
+    socket.on('chatMessage', function (data) {
+    // Create the username element
+    var username = document.createElement('span');
+    username.style.color = data.color;
+    username.style.fontWeight = '800';
+    username.style.fontSize = '17.5px';
+    username.textContent = '[' + data.username + ']';
+
+    // Create the message element
+    var message = document.createElement('span');
+    message.style.fontWeight = '200';
+    message.style.color = '#ffffff';
+    message.textContent = ' ' + data.message;
+
+    // Create the spacer element
+    var spacer = document.createElement('span');
+    spacer.textContent = ' ';
+
+    // Append the elements to the list item
+    var item = document.createElement('li');
+    item.classList.add('chat-message');
+    item.style.width = '94vw';
+    item.style.backgroundColor = '#1b1b1b';
+
+    item.appendChild(username);
+    item.appendChild(spacer);
+    item.appendChild(message);
+    
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+});
+
+    // Call the setUsername function to prompt the user for a username
+    setUsername();
+</script>
+</body>
+</html>

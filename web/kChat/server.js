@@ -31,7 +31,7 @@ server.listen(3000, () => {
 io.on('connection', (socket) => {
   // emit 'new user connected' message to chat/console
   socket.on('newUser', (username) => {
-    socket.emit('chatMessage', {
+    io.emit('chatMessage', {
       username: `${username}`,
       message: 'has joined the chat!',
       color: '#b20000'
